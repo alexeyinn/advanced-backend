@@ -14,6 +14,8 @@ async function start() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("api/docs", app, document);
+  // Доступ ко всем эндпоинтам, только для авторизованных пользователей
+  // app.useGlobalGuards(JwtAuthGuard)
 
   await app.listen(PORT, () => console.log(`Server started on port - ${PORT}`));
 }
