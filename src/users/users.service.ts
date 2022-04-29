@@ -47,7 +47,11 @@ export class UsersService {
     );
   }
 
-  ban(dto: BanUserDto) {
-    throw new Error("Method not implemented.");
+  async ban(dto: BanUserDto) {
+    const user = await this.userRepository.findByPk(dto.userId);
+    user.banned = true;
+    user.banReason = dto.banReason;
+    await user.save();
+    return user;
   }
 }
