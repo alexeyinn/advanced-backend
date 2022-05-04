@@ -13,6 +13,7 @@ interface PostsCreationAttrs {
   title: string;
   content: string;
   image: string;
+  userId: number;
 }
 
 @Table({ tableName: "posts", createdAt: false, updatedAt: false })
@@ -27,14 +28,14 @@ export class Posts extends Model<Posts, PostsCreationAttrs> {
   id: number;
 
   @ApiProperty({ example: "Заголовок", description: "Заголовок сообщения" })
-  @Column({ type: DataType.STRING, unique: true, allowNull: false })
+  @Column({ type: DataType.STRING, allowNull: false })
   title: string;
 
   @ApiProperty({
     example: "Текст сообщения и закрепы",
     description: "Текст сообщения и закрепы",
   })
-  @Column({ type: DataType.STRING, allowNull: false })
+  @Column({ type: DataType.STRING })
   content: string;
 
   @ApiProperty({ example: "pic.jpg", description: "Файл" })
@@ -42,7 +43,7 @@ export class Posts extends Model<Posts, PostsCreationAttrs> {
   image: string;
 
   @ForeignKey(() => User)
-  @Column({ type: DataType.INTEGER, allowNull: false })
+  @Column({ type: DataType.INTEGER })
   userId: number;
 
   @BelongsTo(() => User)
